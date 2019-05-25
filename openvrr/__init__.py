@@ -39,6 +39,9 @@ def get_station_departures(station, time=None, limit=10):
     ret.raise_for_status()
 
     data = json.loads(ret.content.decode('utf-8'))
+    if data['departureList'] is None:
+        data['departureList'] = []
+
     for elem in data['departureList']:
         for key in ['dateTime', 'realDateTime']:
             if key in elem:
